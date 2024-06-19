@@ -8,19 +8,6 @@ const cors = require("cors");
 const multer = require("multer");
 const uploadDir = path.join(__dirname, "./uploads");
 
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (origin === allowedOrigin || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   credentials: true,
-//   optionsSuccessStatus: 204,
-// };
-
 app.use(cors(corsOptions));
 
 if (!fs.existsSync(uploadDir)) {
@@ -39,6 +26,7 @@ const upload = multer({ storage: storage });
 app.get("/", (req, res) => {
   res.send("Server api is running successfully ");
 });
+
 app.use(
   "/profile",
   upload.single("image"),
