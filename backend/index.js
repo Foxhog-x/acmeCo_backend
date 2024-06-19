@@ -9,20 +9,20 @@ const multer = require("multer");
 const uploadDir = path.join(__dirname, "./uploads");
 const allowedOrigin = process.env.ALLOWED_ORGIN;
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (origin === allowedOrigin || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     if (origin === allowedOrigin || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   credentials: true,
+//   optionsSuccessStatus: 204,
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
