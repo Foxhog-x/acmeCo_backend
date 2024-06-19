@@ -1,17 +1,20 @@
+const fs = require("fs");
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
 
 router.post("/", (req, res) => {
   try {
     const formData = req.body;
     let jsonData = [];
-    try {
-      jsonData = JSON.parse(fs.readFileSync("data.json"));
-    } catch (error) {
-      console.error("Error reading file:", error);
 
-      return res.status(500).send("Error reading file");
+    // Check if the file exists before reading it
+    if (fs.existsSync("data.json")) {
+      try {
+        jsonData = JSON.parse(fs.readFileSync("data.json"));
+      } catch (error) {
+        console.error("Error parsing file:", error);
+        return res.status(500).send("Error parsing file");
+      }
     }
 
     jsonData.push(formData);
