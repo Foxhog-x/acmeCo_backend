@@ -23,7 +23,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
+app.get("/", (req, res) => {
+  res.send("Server api is running successfully ");
+});
 app.use(
   "/profile",
   upload.single("image"),
