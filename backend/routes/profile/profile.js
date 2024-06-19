@@ -23,7 +23,7 @@ router.post("/", (req, res) => {
       console.log("Data appended to file successfully");
       res.send("Data appended to file successfully");
     });
-    res.status(200).json({ success: formData });
+    res.status(200).json({ success: true });
   } catch (error) {
     res.status(400).json(error.message);
   }
