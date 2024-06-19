@@ -7,8 +7,22 @@ const fs = require("fs");
 const cors = require("cors");
 const multer = require("multer");
 const uploadDir = path.join(__dirname, "./uploads");
+const allowedOrigin = "acme-co-backendcn.vercel.app";
 
-app.use(cors());
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (origin === allowedOrigin || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);

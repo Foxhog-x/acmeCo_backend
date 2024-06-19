@@ -10,6 +10,8 @@ router.post("/", (req, res) => {
       jsonData = JSON.parse(fs.readFileSync("data.json"));
     } catch (error) {
       console.error("Error reading file:", error);
+
+      return res.status(500).send("Error reading file");
     }
 
     jsonData.push(formData);
@@ -17,15 +19,13 @@ router.post("/", (req, res) => {
     fs.writeFile("data.json", JSON.stringify(jsonData, null, 2), (err) => {
       if (err) {
         console.error("Error writing file:", err);
-        res.status(500).send("Error writing file");
-        return;
+        return res.status(500).send("Error writing file");
       }
-      console.log("Data appended to file successfully");
-      res.send("Data appended to file successfully");
+
+      return res.status(200).json({ success: formData });
     });
-    res.status(200).json({ success: formData });
   } catch (error) {
-    res.status(400).json(error.message);
+    return res.status(400).json({ error: error.message });
   }
 });
 
