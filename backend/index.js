@@ -7,7 +7,7 @@ const fs = require("fs");
 const cors = require("cors");
 const multer = require("multer");
 const uploadDir = path.join(__dirname, "./uploads");
-const allowedOrigin = "acme-co-backendcn.vercel.app";
+const allowedOrigin = process.env.ALLOWED_ORGIN;
 
 const corsOptions = {
   origin: (origin, callback) => {
