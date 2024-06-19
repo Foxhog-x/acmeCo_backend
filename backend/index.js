@@ -7,7 +7,6 @@ const fs = require("fs");
 const cors = require("cors");
 const multer = require("multer");
 const uploadDir = path.join(__dirname, "./uploads");
-const allowedOrigin = process.env.ALLOWED_ORGIN;
 
 // const corsOptions = {
 //   origin: (origin, callback) => {
@@ -22,7 +21,7 @@ const allowedOrigin = process.env.ALLOWED_ORGIN;
 //   optionsSuccessStatus: 204,
 // };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
