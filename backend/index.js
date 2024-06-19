@@ -8,7 +8,11 @@ const cors = require("cors");
 const multer = require("multer");
 const uploadDir = path.join(__dirname, "./uploads");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
