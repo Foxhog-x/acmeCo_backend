@@ -10,13 +10,16 @@ router.post("/", (req, res) => {
     // Check if the file exists before reading it
     if (fs.existsSync("data.json")) {
       try {
-        jsonData = JSON.parse(fs.readFileSync("data.json"));
+        const fileData = fs.readFileSync("data.json", "utf8");
+        jsonData = JSON.parse(fileData);
+        if (!Array.isArray(jsonData)) {
+          throw new Error("File does not contain an array");
+        }
       } catch (error) {
         console.error("Error parsing file:", error);
         return res.status(500).send("Error parsing file");
       }
     }
-
     jsonData.push(formData);
 
     fs.writeFile("data.json", JSON.stringify(jsonData, null, 2), (err) => {
