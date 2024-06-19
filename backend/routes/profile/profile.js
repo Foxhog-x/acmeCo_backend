@@ -25,9 +25,11 @@ router.post("/", (req, res) => {
         return res.status(500).send("Error writing file");
       }
 
+      console.log("Form data saved successfully:", formData);
       return res.status(200).json({ success: formData });
     });
   } catch (error) {
+    console.error("Error:", error);
     return res.status(400).json({ error: error.message });
   }
 });
